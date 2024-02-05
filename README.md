@@ -24,4 +24,37 @@ How to determine the GC content of the sequence:
 
 ![alt text](https://github.com/snehakini6/Caenorrhabditis_2/assets/138410658/d2ef7287-b8b9-4696-bd22-55b11c58a4e0)
 
+How to Generate a Reverse Complement of a Sequence:
+1. Access your scratch account via discovery.
+cd /scratch/kutzer.h
+
+2. Download the NCBI tools
+curl -o datasets https://ftp.ncbi.nlm.nih.gov/pub/datasets/command~
+line/v2/linux-amd64/datasets
+
+curl -o dataformat https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-
+line/v2/linux-amd64/dataformat
+
+3. Make them executable:
+chmod tx datasets dataformat
+
+4. Download the genome sequence to your scratch account on the cluster using the accession number.
+./datasets download genome accession GCF_000002985.6
+
+5. Unzip the file.
+unzip ncbi_dataset.zip
+
+6. Load the necessary modules into the work space.
+module load emboss
+module load seqtk
+
+7. Extract a sequence.
+echo 'NC_003279.8' > list.txt
+
+8. Then use the command that tells seqtk to extract that sequence from the larger file and store it in a new file by itself.
+seqtk subseq GCF_000002985.6_WBcel235_genomic.fna list.txt > NC_003279.8.txt
+
+9. Now generate a new reverse complement sequence.
+revseq NC_003279.8.txt NC_003279.8.rev
+
       
